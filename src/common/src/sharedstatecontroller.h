@@ -15,6 +15,12 @@ public:
                                  QString subPath);
     virtual AccountWorkerGenerator* generator() = 0;
 
+signals:
+    void operationRequest(AccountBase* account, QString subPath);
+
+private slots:
+    void operation(AccountBase* account, QString subPath);
+
 private:
     QSharedPointer<NcDirNode> m_cachedTree;
 };

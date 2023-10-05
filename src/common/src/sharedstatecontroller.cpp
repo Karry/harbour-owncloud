@@ -5,6 +5,27 @@
 SharedStateController::SharedStateController(QObject *parent) :
     QObject(parent)
 {
+    connect(this, &SharedStateController::operationRequest,
+            this, &SharedStateController::operation,
+            Qt::QueuedConnection);
+}
+
+void SharedStateController::operation(AccountBase* account, QString subPath)
+{
+    for (AccountWorkers* workers : this->generator()->accountWorkersVector()) {
+        if (workers->account() != account)
+            continue;
+
+        CommandEntity* listingRequest = workers->browserCommandQueue()->directoryListingRequest(subPath, false, false);
+        /*NcDirTreeCommandUnit* dirTreeRequest = new NcDirTreeCommandUnit(nullptr,
+                                                                        workers->browserCommandQueue(),
+                                                                        NODE_PATH_SEPARATOR,
+                                                                        this->m_cachedTree,
+                                                                        1);*/
+        workers->browserCommandQueue()->enqueue(listingRequest);
+        workers->browserCommandQueue()->run();
+        break;
+    }
 }
 
 bool SharedStateController::requestDirectoryListing(AccountBase* account, QString subPath)
@@ -14,28 +35,11 @@ bool SharedStateController::requestDirectoryListing(AccountBase* account, QStrin
         return false;
     }
 
-    std::function<void()> operation = [this, account, subPath](){
-        for (AccountWorkers* workers : this->generator()->accountWorkersVector()) {
-            if (workers->account() != account)
-                continue;
-
-            CommandEntity* listingRequest = workers->browserCommandQueue()->directoryListingRequest(subPath, false, false);
-            /*NcDirTreeCommandUnit* dirTreeRequest = new NcDirTreeCommandUnit(nullptr,
-                                                                            workers->browserCommandQueue(),
-                                                                            NODE_PATH_SEPARATOR,
-                                                                            this->m_cachedTree,
-                                                                            1);*/
-            workers->browserCommandQueue()->enqueue(listingRequest);
-            workers->browserCommandQueue()->run();
-            break;
-        }
-    };
-
     if (this->thread() != QThread::currentThread()) {
-        QMetaObject::invokeMethod(qApp, operation);
+        emit operationRequest(account, subPath);
         return true;
     }
 
-    operation();
+    operation(account, subPath);
     return true;
 }

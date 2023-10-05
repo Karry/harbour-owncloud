@@ -28,7 +28,6 @@ BuildRequires:  pkgconfig(sailfishapp) >= 1.0.2
 BuildRequires:  pkgconfig(Qt5Core)
 BuildRequires:  pkgconfig(Qt5Qml)
 BuildRequires:  pkgconfig(Qt5Quick)
-BuildRequires:  pkgconfig(nemotransferengine-qt5)
 BuildRequires:  desktop-file-utils
 
 %description
@@ -51,9 +50,9 @@ Nextcloud/ownCloud background task for automatic camera backups
 # >> build pre
 # << build pre
 
-%qtc_qmake5
+%qtc_qmake5 CONFIG+=sailfish_build CONFIG+=nosharing
 
-%qtc_make %{?_smp_mflags} CONFIG+=sailfish_build
+%qtc_make %{?_smp_mflags}
 
 # >> build post
 # << build post
@@ -91,14 +90,8 @@ desktop-file-install --delete-original       \
 /usr/lib/systemd/user/%{name}-permission-agent.service
 /usr/lib/systemd/user/user-session.target.wants/%{name}-daemon.service
 /usr/lib/systemd/user/user-session.target.wants/%{name}-permission-agent.service
-%{_datadir}/nemo-transferengine/plugins/
-%{_libdir}/nemo-transferengine/plugins/libghostcloudshareplugin.so
 %{_libdir}/qt5/qml/com/github/beidl/harbourowncloud/libharbourowncloudqmlplugin.so
 %{_libdir}/qt5/qml/com/github/beidl/harbourowncloud/qmldir
-%{_datadir}/themes/sailfish-default/meegotouch/z1.0/icons/icon-m-share-%{name}.png
-%{_datadir}/themes/sailfish-default/meegotouch/z1.25/icons/icon-m-share-%{name}.png
-%{_datadir}/themes/sailfish-default/meegotouch/z1.5-large/icons/icon-m-share-%{name}.png
-%{_datadir}/themes/sailfish-default/meegotouch/z1.75/icons/icon-m-share-%{name}.png
 
 # >> files
 # << files

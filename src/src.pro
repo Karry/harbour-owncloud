@@ -24,10 +24,6 @@ contains(CONFIG, noadditionals) {
     SUBDIRS += qmlextension
 }
 
-!contains(CONFIG, nosharing) {
-    SUBDIRS += sharing
-}
-
 contains(CONFIG, clickphotobackup) {
     SUBDIRS += ut-photobackup
 }

@@ -8,3 +8,7 @@ Name=GhostCloud
 # your app name in German locale (de)
 Name[de]=GhostCloud
 Name[sl]=GhostCloud
+
+[X-Sailjail]
+# TODO: find way howto communicate with ghostcloud daemon from Sailjail
+Sandboxing=Disabled

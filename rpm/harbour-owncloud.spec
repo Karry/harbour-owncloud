@@ -95,13 +95,3 @@ desktop-file-install --delete-original       \
 
 # >> files
 # << files
-
-%pre daemon
-/bin/systemctl-user stop harbour-owncloud-permissiond.service >/dev/null 2>&1 || :
-
-%post daemon
-rm -f /home/nemo/.config/systemd/user/lipstick.service.wants/harbour-owncloud-daemon.service >/dev/null 2>&1 || :
-rm -f /home/nemo/.config/systemd/user/lipstick.service.wants/harbour-owncloud-permission.service >/dev/null 2>&1 || :
-/bin/systemctl-user daemon-reload >/dev/null 2>&1 || :
-/bin/systemctl-user restart harbour-owncloud-daemon.service >/dev/null 2>&1 || :
-/bin/systemctl-user restart harbour-owncloud-permission-agent.service >/dev/null 2>&1 || :

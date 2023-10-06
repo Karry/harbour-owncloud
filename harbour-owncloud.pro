@@ -37,5 +37,4 @@ contains(CONFIG,clickphotobackup) {
 # SailfishOS rpm packaging
 OTHER_FILES += \
     rpm/harbour-owncloud.changes.in \
-    rpm/harbour-owncloud.spec \
-    rpm/harbour-owncloud.yaml
+    rpm/harbour-owncloud.spec

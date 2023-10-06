@@ -9,6 +9,10 @@ contains(CONFIG, clickphotobackup) {
     DEFINES += GHOSTCLOUD_UBUNTU_TOUCH_PHOTOBACKUP
 }
 
+!contains(CONFIG, quickcontrols) {
+    QMAKE_RPATHDIR += /usr/share/harbour-owncloud/lib
+}
+
 SOURCES += \
     $$PWD/main.cpp \
     $$PWD/filesystem.cpp \

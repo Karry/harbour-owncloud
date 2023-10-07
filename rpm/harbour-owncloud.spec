@@ -6,6 +6,9 @@
 Name:       harbour-owncloud
 
 # >> macros
+# ignore installed files that are not packed to rpm
+%define _unpackaged_files_terminate_build 0
+
 %define debug_package %{nil}
 %define __requires_exclude ^libqwebdav|libharbourowncloudcommon.*|libnemonotifications-qt5.*$
 %define __provides_exclude_from ^%{_datadir}/.*$

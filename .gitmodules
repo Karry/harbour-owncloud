@@ -18,7 +18,7 @@
 	url = https://github.com/fredldotme/qml-ui-set
 [submodule "3rdparty/libqtcommandqueue"]
 	path = 3rdparty/libqtcommandqueue
-	url = https://github.com/Karry/libqtcommandqueue.git
+	url = https://github.com/fredldotme/libqtcommandqueue
 [submodule "3rdparty/dropboxQt"]
 	path = 3rdparty/dropboxQt
 	url = https://github.com/osoftteam/dropboxQt.git
